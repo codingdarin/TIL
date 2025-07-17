@@ -1,20 +1,92 @@
-# 250717 Offline
 
-Git 이란? **분산 저장 관리**
-    : 버전 기록을 통한 효과적인 협업 가능 
 
-`git status` : 현재 상태 확인
-    - 현재 브랜치에서 수정된 파일과 커밋되지 않은 변경사항 확인
+📘 CLI & Git 요약 정리
 
-`git add` : 변경사항 스테이징
-    - 변경된 파일을 커밋할 준비 상태로 올림 (가상의 스테이징 에어리어에 추가)
-    `git add file_name` 특정 파일만 추가
-    `git add .` 현재 티렉토리의 전체 변경사항 추가
-    `git add -p` 부분적으로 선택해 추가
+🖥️ CLI (Command Line Interface)
 
-`git commit` : 커밋 생성 명령어
-    `git commit -m "description message"` - 커밋 생성
-    cf) 깃커밋 단독 입력 시 vim 진입: vim 인서트(입력) 명령어 i , 저장 후 나가기 wq
-`git log`
-`git log oneline`
-`git log -p`
+🔹 개념
+
+명령어 기반 인터페이스
+마우스 없이 텍스트 명령어로 컴퓨터를 조작하는 방식
+
+
+🔹 주요 명령어 (Linux 기준)
+
+명령어	설명
+
+pwd	현재 경로 출력
+ls	현재 폴더의 파일 목록 출력
+cd 경로	해당 경로로 이동
+cd ..	상위 폴더로 이동
+mkdir 폴더명	새 폴더 생성
+touch 파일명	빈 파일 생성
+rm 파일명	파일 삭제
+rm -r 폴더명	폴더 삭제
+mv 파일A 파일B	파일 이동 or 이름 변경
+clear	터미널 화면 정리
+
+
+
+---
+
+🗃️ Git
+
+🔹 개념
+
+분산 버전 관리 시스템 (DVCS)
+
+코드 변경 이력 추적, 복원, 협업 가능
+
+
+🔹 Git vs GitHub
+
+Git: 로컬에서 버전 관리 도구
+
+GitHub: Git 저장소를 저장/공유하는 웹 플랫폼 (원격 저장소)
+
+
+
+---
+
+🔹 Git 기본 흐름
+
+git init                # Git 저장소 생성
+git status              # 현재 상태 확인
+git add 파일명          # 변경 파일 스테이징
+git commit -m "메시지" # 커밋 생성
+git log                 # 커밋 기록 확인
+
+
+---
+
+🔹 주요 명령어 정리
+
+명령어	설명
+
+git init	Git 저장소 생성
+git status	현재 상태 확인
+git add .	모든 변경 파일 스테이징
+git commit -m "메시지"	스테이징된 변경 커밋
+git log	커밋 이력 확인
+git diff	변경사항 비교
+git reset	커밋 취소 (soft/mixed/hard)
+git revert	특정 커밋 되돌리기 (새 커밋 생성)
+git rm 파일명	파일 삭제 후 스테이징
+git mv A B	파일 이동 or 이름 변경
+
+
+
+
+
+---
+
+🔹 Git 원격(Remote)
+
+명령어	설명
+
+git remote add origin URL	원격 저장소 연결
+git push -u origin master	로컬 master → 원격 업로드
+git pull origin master	원격 master → 로컬 가져오기
+git clone URL	원격 저장소 복사
+git remote remove origin	원격 저장소 연결 해제
+

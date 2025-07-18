@@ -1,3 +1,8 @@
+# 📘 TIL - 깃(CLI) 정리
+
+## 📅 날짜: 2025-07-17  
+## 🧠 주제: 기본 개념 및 기초 명령어
+## 🔰 1. CLI 개요
 
 # CLI = Command Line interface #
 

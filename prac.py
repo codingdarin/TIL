@@ -1,44 +1,34 @@
-T = int(input())
-for tc in range(1, T+1):
-    arr = list(map(int, input().split()))
-    player_1 = []
-    player_2 = []
-    winner = 0 #무승부는 0
-    x = 0
+# BOJ 16928. 뱀과 사다리 (D3 / G5)
+#------------------------------------------------1회차 풀이
+# 사다리랑 뱀만 인접리스트에 넣기?
 
-    while x < 6: # 6개뽑을 때까지
+import sys
+from collections import deque
 
-        if x%2 ==0:
-            player_1.append(arr[x])
-            player_1.sort()
-        else:
-            player_2.append(arr[x])
-            player_2.sort()
-        
-        x += 1        
+input = sys.stdin.readline
+arr = [0]*101
+N, M = map(int, input().split())
 
-        if len(player_2) >= 3:
-            #런 or 트리플 확인 (플레이어 1부터 체크)
-            for i in range(len(player_1)):
-                # 먼저 트리플인지
-                if player_1.count(player_1[i]) >=3:
-                    winner = 1
-                    break
-                # 런인지
-                if i+2 < len(player_1) and player_1[i]+2 == player_1[i+1]+1 == player_1[i+2]:
-                    winner = 1
-                    break
-            for i in range(len(player_2)):
-                # 먼저 트리플인지
-                if player_2.count(player_2[i]) >=3:
-                    winner = 2
-                    break
-                # 런인지
-                if i+2 < len(player_2) and player_2[i]+2 == player_2[i+1]+1 == player_2[i+2]:
-                    winner = 2
-                    break
-        if winner != 0:
-            break
-            
+for _ in range(N):
+    s, e = map(int, input().split())
+    arr[s] = e
 
-    print(f"#{tc} {winner}")
+for _ in range(M):
+    s, e = map(int, input().split())
+    arr[s] = e
+
+visited = [0] *101
+q = deque([1,])
+
+# 이동 시작 (BFS)
+current = 0
+for dice in range(1,7):
+    next_pos = current + dice
+    if next_pos < 100:
+        if arr[next_pos] != 0:
+            next_pos = arr[next_pos]
+
+        if not visited[next_pos]:
+
+
+

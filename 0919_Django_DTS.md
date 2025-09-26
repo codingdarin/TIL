@@ -25,29 +25,42 @@
 
 #### 2. Tags (태그) - `{% %}`
 ```html
-<!-- 조건문, 반복문 등 로직 처리 -->
+<!-- 조건문 -->
+{% if user %}
+    <p>로그인된 사용자: {{ user.name }}</p>
+{% else %}
+    <p>로그인하세요</p>
+{% endif %}
 
-### form 핵심 속성
-- **action**: 데이터를 보낼 URL (비어있으면 현재 페이지)
-- **method**: HTTP 전송 방식 (GET)
-- **name**: 서버에서 데이터를 받을 때 사용할 키 이름
+<!-- 반복문 -->
+{% for item in items %}
+    <li>{{ item }}</li>
+{% endfor %}
 
-### GET 방식
+<!-- URL 생성 -->
+<a href="{% url 'detail' item.id %}">상세보기</a>
+```
+
+#### 3. Filters (필터) - `{{ 변수|필터 }}`
 ```html
-<form method="GET">
+<!-- 문자열 조작 -->
+{{ name|upper }}        <!-- 대문자 변환 -->
+{{ content|length }}    <!-- 길이 -->
+{{ date|date:"Y-m-d" }} <!-- 날짜 포맷 -->
 ```
-- URL에 데이터 표시: `?q=검색어`
-- 북마크 가능, URL 공유 가능
-- **조회, 검색**에 주로 사용
 
-### View에서 form 데이터 처리 (GET만)
-```python
-def guestbook(request):
-    # GET 요청 (페이지 첫 방문 또는 데이터 전달)
-    name = request.GET.get('name')
-    message = request.GET.get('message')
-    return render(request, 'guestbook.html', context)
+#### 4. Comments (주석) - `{# #}`
+```html
+{# 이것은 주석입니다 #}
+{% comment %}
+여러 줄
+주석
+{% endcomment %}
 ```
+
+## 템플릿 상속 (Template Inheritance)
+
+### 템플릿 상속이란?
 - HTML 기본 구조의 중복 제거
 - 공통 레이아웃 재사용
 - 유지보수성 향상
@@ -141,8 +154,35 @@ def guestbook(request):
         message = request.POST.get('message')
     else:
         # GET 요청 (페이지 첫 방문)
-        pass
+        name = request.GET.get('name')
+        message = request.GET.get('message')
     return render(request, 'guestbook.html', context)
+```
+
+### request.GET.get() / request.POST.get() 메서드
+```python
+# 기본 사용법
+value = request.GET.get('key_name')
+
+# 기본값 설정 (키가 없을 때)
+value = request.GET.get('key_name', '기본값')
+```
+
+#### 주요 특징
+- **안전한 접근**: 키가 없어도 에러가 발생하지 않음
+- **기본값 설정 가능**: 두 번째 인자로 기본값 지정
+- **None 반환**: 키가 없고 기본값도 없으면 None 반환
+
+#### 다른 방법들과 비교
+```python
+# 1. get() 메서드 (권장)
+name = request.GET.get('name')  # 안전, None 반환
+
+# 2. 딕셔너리 방식 (위험)
+name = request.GET['name']  # KeyError 발생 가능
+
+# 3. getlist() - 같은 이름으로 여러 값
+hobbies = request.GET.getlist('hobby')  # ['독서', '영화', '게임']
 ```
 
 ## Django URLs
@@ -159,7 +199,7 @@ path('<타입:변수명>/', views.함수명)
 # 주요 타입들
 path('<int:pk>/', views.detail)        # 정수
 path('<str:name>/', views.profile)     # 문자열
-path('<slug:title>/', views.detail)      # 슬러그
+path('<slug:title>/', views.detail)    # 슬러그
 ```
 
 #### View에서 변수 받기
@@ -183,8 +223,8 @@ urlpatterns = [
 
 # articles/urls.py  
 urlpatterns = [
-    path('', views.index),                    # /articles/
-    path('profile/<int:user_id>/', views.profile),  # /articles/profile/1/
+    path('', views.index),                           # /articles/
+    path('profile/<int:user_id>/', views.profile),   # /articles/profile/1/
 ]
 ```
 
